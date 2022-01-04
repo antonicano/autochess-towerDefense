@@ -10,6 +10,7 @@ const HEROES =[
         "url" : "sonic.png"
     }
 ]
+matchStarted = false;
 
 $( document ).ready(function() {
     console.log('ready');
@@ -92,4 +93,23 @@ function loadHeroes(){
             drag(event);
         });
     }
+}
+
+function startGame(){
+    match();
+}
+
+function match(){
+    this.matchStarted = true;
+    disableTable();
+    timeout = setTimeout(enableTable, 3000);
+}
+
+function disableTable(){
+    const gameTable = document.getElementById('gameTable');
+    gameTable.classList.add('disabled_game_table');
+}
+function enableTable(){
+    const gameTable = document.getElementById('gameTable');
+    gameTable.classList.remove('disabled_game_table');
 }
