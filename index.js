@@ -38,9 +38,11 @@ function setGameTable(){
     for(let i = 0; i < ROWS; i++){
         let tableRow = document.createElement("div");
         tableRow.classList.add('game_row');
+        tableRow.id = 'row_'+i;
         for(let j = 0; j < CELL_PER_ROW; j++){
             let gameCell = document.createElement("div");
             gameCell.classList.add('game_cell');
+            gameCell.id = 'row_'+i+'_cell_'+j;
             tableRow.appendChild(gameCell);
         }
         gameTable.appendChild(tableRow);
