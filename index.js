@@ -28,8 +28,11 @@ $( document ).ready(function() {
   
   function drop(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+    const cell = document.getElementById(ev.target.id);
+    if(cell && cell.nodeName !== 'IMG' && cell.children.length === 0){
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
   }
 
 function setGameTable(){
