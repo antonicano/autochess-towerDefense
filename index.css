@@ -23,6 +23,9 @@ html, body, #container{
     height: 160px;
     width: 160px;
     border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero_holder{

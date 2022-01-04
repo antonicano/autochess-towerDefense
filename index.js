@@ -2,21 +2,17 @@ $( document ).ready(function() {
     console.log('ready');
   });
 
-$( function() {
-    $( ".draggable" ).draggable();
-} );
-
-$( ".droppable" ).droppable({
-    accept: ".draggable",
-    classes: {
-      "ui-droppable-active": "ui-state-active",
-      "ui-droppable-hover": "ui-state-hover"
-    },
-    drop: function( event, ui ) {
-        console.log('dropped')
-      $( this )
-        .addClass( "ui-state-highlight" )
-        .find( "p" )
-          .html( "Dropped!" );
-    }
-  });
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+    console.log(ev.dataTransfer);
+  }
+  
+  function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+  }

@@ -12,11 +12,11 @@
         <div id="gameContainer">
             <div id="gameTable">
                 <div class="game_row">
-                    <div class="game_cell droppable"></div>
-                    <div class="game_cell droppable"></div>
-                    <div class="game_cell droppable"></div>
-                    <div class="game_cell droppable"></div>
-                    <div class="game_cell droppable"></div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" class="game_cell droppable"></div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" class="game_cell droppable"></div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" class="game_cell droppable"></div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" class="game_cell droppable"></div>
+                    <div ondrop="drop(event)" ondragover="allowDrop(event)" class="game_cell droppable"></div>
                 </div>
                 <div class="game_row">
                     <div class="game_cell"></div>
@@ -49,10 +49,10 @@
             </div>
             <div id="gameDock">
                 <div class="hero_holder">
-                    <img class="hero_img draggable" src="images/megaman.png" />
+                    <img draggable="true" ondragstart="drag(event)" id="megaman" class="hero_img draggable" src="images/megaman.png" />
                 </div>
                 <div class="hero_holder">
-                    <img class="hero_img draggable" src="images/sonic.png" />
+                    <img draggable="true" ondragstart="drag(event)" id="sonic" class="hero_img draggable" src="images/sonic.png" />
                 </div>
             </div>
         </div>        
