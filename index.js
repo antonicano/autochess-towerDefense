@@ -1,5 +1,5 @@
-const ROWS = 5;
-const CELL_PER_ROW = 5;
+const ROWS = 10;
+const CELL_PER_ROW = 10;
 const HEROES =[
     {
         "name": "megaman",
@@ -9,14 +9,49 @@ const HEROES =[
         "name": "sonic",
         "url" : "sonic.png"
     }
-]
-matchStarted = false;
+];
+
+const ENEMIES = [
+    {
+        "name": "archangel",
+        "url": "archangel.png"
+    },
+    {
+        "name": "diablo",
+        "url" : "diablo.png"
+    },
+    {
+        "name": "dt",
+        "url" : "dt.png"
+    },
+    {
+        "name": "illidan",
+        "url" : "illidan.png"
+    },
+    {
+        "name": "kerrigan",
+        "url" : "kerrigan.png"
+    },
+    {
+        "name": "lich",
+        "url" : "lich.png"
+    },
+    {
+        "name": "monkey",
+        "url" : "monkey.png"
+    },
+    {
+        "name": "reaper",
+        "url" : "reaper.png"
+    },
+];
 
 $( document ).ready(function() {
     console.log('ready');
     setGameTable();
     setDropZones();
     loadHeroes();
+    loadEnemies();
   });
 
   function allowDrop(ev) {
@@ -79,12 +114,10 @@ function loadHeroes(){
         const heroImg = document.createElement('img');
         heroImg.classList.add('hero_img');
         heroImg.id = HEROES[i].name;
-        heroImg.src = "images/"+HEROES[i].url;
+        heroImg.src = "images/heroes/"+HEROES[i].url;
 
         heroHolder.appendChild(heroImg);
-        gameDock.appendChild(heroHolder);
-        
-        console.log(HEROES[i]);
+        gameDock.appendChild(heroHolder);        
     }
 
     const heroImgs = document.getElementsByClassName('hero_img');
@@ -95,14 +128,47 @@ function loadHeroes(){
     }
 }
 
+function loadEnemies(){
+    /**
+     * Los enemigos pueden spawnear en cualquier cell de las primeras
+     * 5 lineas es decir [0-4]
+     */
+    for(let i = 0; i < ENEMIES.length; i++){
+        const enemieCell = canEnemieSpawn();
+        if(enemieCell){
+            console.log(enemieCell.children);
+            const enemieImg = document.createElement('img');
+            enemieImg.classList.add('hero_img');
+            enemieImg.id = ENEMIES[i].name;
+            enemieImg.src = "images/enemies/" + ENEMIES[i].url;
+    
+            enemieCell.appendChild(enemieImg);
+        }
+
+    }
+}
+
+function canEnemieSpawn(){
+    const row = getRandomInt(0,4);
+    const cell = getRandomInt(0,9);
+    console.log(row, cell);
+    //comprobamos que no hay un enemigo ahi. 
+    const enemieCell = document.getElementById('row_'+row+'_cell_'+cell);
+    if(enemieCell.children.length > 0){
+        canEnemieSpawn();
+    }else{
+        return enemieCell;
+    }
+  }
+
 function startGame(){
     match();
 }
 
 function match(){
-    this.matchStarted = true;
     disableTable();
-    timeout = setTimeout(enableTable, 3000);
+    heroesMovement();
+    //timeout = setTimeout(enableTable, 3000);
 }
 
 function disableTable(){
@@ -113,3 +179,40 @@ function enableTable(){
     const gameTable = document.getElementById('gameTable');
     gameTable.classList.remove('disabled_game_table');
 }
+
+function heroesMovement(){
+    for(let i = 0; i < HEROES.length; i++){  
+        const hero = document.getElementById(HEROES[i].name);
+        const currentHeroImg = hero.cloneNode(true);
+        if(hero.parentElement.classList.contains('game_cell')){
+            console.log(HEROES[i]);
+            const idParentElement = hero.parentElement.id;
+            const parsedIdElement = idParentElement.split('_');
+            console.log(idParentElement);
+            console.log(parsedIdElement);
+            //tenemos enemigos en nuestro rango linea recta??
+            //tenemos enemigos en nuestro rango rango diagonal (aun fuera de alcance)
+
+            //nos podemos mover verticalmente?
+            //Movimiento vertical
+            let nextRow = parseInt(parsedIdElement[1]) - 1;
+            if(nextRow >= 0){
+                parsedIdElement[1] = nextRow;
+                const newPosition = document.getElementById(parsedIdElement.join('_'));
+                newPosition.appendChild(currentHeroImg);
+                hero.remove();
+            }
+
+        }
+
+        if(i === (HEROES.length-1)){
+            console.log('acabar');
+            this.matchStarted = false;
+        }
+    }
+
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
