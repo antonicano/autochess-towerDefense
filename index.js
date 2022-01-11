@@ -2,12 +2,25 @@ const ROWS = 10;
 const CELL_PER_ROW = 10;
 const HEROES =[
     {
-        "name": "megaman",
-        "url": "megaman.png"
+        "name": "angemon",
+        "url": "angemon.png",
+        "range": 5,
+        "attack": 4,
+        "defense": 4
     },
     {
-        "name": "sonic",
-        "url" : "sonic.png"
+        "name": "digimon",
+        "url" : "digimon.png",
+        "range" : 2,
+        "attack": 10,
+        "defense" :3
+    },
+    {
+        "name": "guts",
+        "url" : "guts.png",
+        "range" : 2,
+        "attack": 10,
+        "defense" :3
     }
 ];
 
